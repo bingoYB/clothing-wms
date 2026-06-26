@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: 'Inter', system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #fafafa;
+  }
+
+  body {
+    margin: 0;
+    /* 纯净的杂志留白背景 */
+    background-color: #fafafa;
+    color: #111111;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+}
+
+/* 统一无障碍焦点，使用极简的纯黑 */
+*:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* 标题排版：使用衬线体，增强优雅感 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: theme('fontFamily.display');
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: #111111;
+  font-weight: 500;
+}
+
+/* 极简滚动条 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e5e5;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4d4d4;
+}
+
+/* 优雅的上浮入场，移除过度的夸张动画 */
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fade-up 0.4s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    animation: none;
+  }
+}
