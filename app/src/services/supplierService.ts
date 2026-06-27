@@ -18,3 +18,29 @@ export function getSupplier(id?: string): Supplier | undefined {
 export function getSupplierName(id?: string): string {
   return getSupplier(id)?.name ?? '-';
 }
+
+/** 新增供应商 */
+export function addSupplier(supplier: Omit<Supplier, 'id'>): Supplier {
+  const newSupplier: Supplier = {
+    ...supplier,
+    id: `SUP${Date.now()}`,
+  };
+  store.suppliers.push(newSupplier);
+  return newSupplier;
+}
+
+/** 更新供应商 */
+export function updateSupplier(id: string, updates: Partial<Omit<Supplier, 'id'>>): void {
+  const index = store.suppliers.findIndex((s) => s.id === id);
+  if (index !== -1) {
+    store.suppliers[index] = { ...store.suppliers[index], ...updates };
+  }
+}
+
+/** 删除供应商 */
+export function deleteSupplier(id: string): void {
+  const index = store.suppliers.findIndex((s) => s.id === id);
+  if (index !== -1) {
+    store.suppliers.splice(index, 1);
+  }
+}

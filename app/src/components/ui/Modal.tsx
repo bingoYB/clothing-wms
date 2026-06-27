@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Button } from './Button';
 
 interface ModalProps {
@@ -21,8 +22,16 @@ export function Modal({
   footer,
   widthClass = 'max-w-lg',
 }: ModalProps) {
-  if (!open) return null;
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!open || !mounted) return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-ink-900/50 p-0 backdrop-blur-sm sm:items-center sm:p-4"
       role="dialog"
@@ -52,6 +61,7 @@ export function Modal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
